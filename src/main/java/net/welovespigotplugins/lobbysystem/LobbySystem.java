@@ -1,6 +1,9 @@
 package net.welovespigotplugins.lobbysystem;
 
+import net.welovespigotplugins.lobbysystem.listener.PlayerJoinListener;
 import net.welovespigotplugins.lobbysystem.utils.PlayerUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -18,8 +21,10 @@ public class LobbySystem extends JavaPlugin {
     public void onEnable() {
 
         instance = this;
+        registerEvents();
 
         this.playerUtils = new PlayerUtils();
+
 
     }
 
@@ -30,4 +35,15 @@ public class LobbySystem extends JavaPlugin {
     public PlayerUtils getPlayerUtils() {
         return playerUtils;
     }
+
+    /**
+     * Register Events
+     */
+    private void registerEvents() {
+
+        final PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new PlayerJoinListener(), this);
+
+    }
+
 }
